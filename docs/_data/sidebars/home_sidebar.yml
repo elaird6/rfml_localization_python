@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: RFML_localization
+      title: rfml_localization
       url: /core
     - output: web,pdf
       title: RFsimulation

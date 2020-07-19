@@ -1,4 +1,4 @@
-# RFML_localization
+# rfml_localization
 > Focus on repository is the location of uncooperative wireless emitters in an indoor environment.  The challenge is that an indoor environment results in dynamic, random propagation of wireless signals.  An approach is to create a RF fingerprint or map of the environment using different RF measurements techniques. Relevant measurements techniques generate a range of data from IQ samples to correlation curves to time-delay estimates (TDE's) for  TDOA; multiple power readings for RSS; and multiple angle of arrival readings for AoA.  The theoretical performance bounds are generated, via CRLB, of empirically measured and derived channel limitations that exists in literature.  From same literature, a simulation model is created that generates the specified random RF channel environment. From these foundations, regression models, that learn from the data in predicting the location of detected emitters, can be tested and validated; some of which are presented here.
 
 
@@ -10,11 +10,11 @@
     - jupyter lab 
 2. Github (using pure python lib)
     - git clone
-    - cd rfml_localization/RFML_localization
+    - cd rfml_localization/rfml_localization
     - python
-        - import RFML_localization
+        - import rfml_localization
 3. pip install
-    - **not done yet** ~~`pip install RFML_localization`~~
+    - **not done yet** ~~`pip install rfml_localization`~~
 
 ## How to use
 
@@ -23,8 +23,8 @@ The primary purpose of package is to use available optimization techniques with 
 ### Manual Optimization
 To use, first step is create an `RFchannel instance.
 
-```
-import RFML_localization.RFsimulation as RFsim
+```python
+import rfml_localization.RFsimulation as RFsim
 from sklearn.model_selection import train_test_split
 
 #generate channel scenario using default channel parameters
@@ -34,7 +34,7 @@ RFchannel_scenario1 = RFsim.RFchannel()
 
 The object's channel parameters are:
 
-```
+```python
 #print out object variables
 for x in RFchannel_scenario1.__dict__:
     print(x,end=', ')
@@ -44,7 +44,7 @@ for x in RFchannel_scenario1.__dict__:
 
 After setting up the environment, create a sensor setup (Tx and Rx locations) and make 1000 observations of a Tx at random locations.  As methods are run on the object, additional variable are added.  This allows inspection of user-specified parameters and even methods run on object.  They are listed below.  Compare to previous cell.
 
-```
+```python
 #from channel scenario, generate locations for Tx and Rx and set of measurements
 RFchannel_scenario1.generate_RxTxlocations(n_rx=6, n_runs=10000, rxtx_flag=3)
 #generate set of measurements
@@ -58,7 +58,7 @@ for x in RFchannel_scenario1.__dict__:
 
 Now that a set of measurements are created, split for training and testing.
 
-```
+```python
 #take object's set of measurements and assign to X,y
 X=RFchannel_scenario1.X_model  #measurements/observations
 y=RFchannel_scenario1.rxtx_locs[:,0,:].transpose()  #location of  Tx
@@ -76,7 +76,7 @@ print(" Shapes of training data:\n",X_train.shape,y_train.shape)
 
 After generating locations, import SKLearn models for regression.  Use the SKLearn-based kernel trick function, `sklearn_kt_regressor`, which wraps a specified SKLearn model and kernelized matrix into a single interface to enable use of SKLearn hyper-tuning tools.  The `sklearn_kt_regressor` inherits all the basic functionality of standard SKLearn model API.  The following sets up model, sets parameters, fits the model, and then predicts.
 
-```
+```python
 from sklearn.linear_model import Ridge, Lasso
 import numpy as np
 from sklearn.metrics import mean_squared_error
@@ -103,7 +103,7 @@ print(skl_kt_model.get_params())
     {'kernel_s0': 1.13e-06, 'kernel_s1': 0.00207, 'kernel_s2': 10.0, 'n_kernels': 3, 'n_meas_array': array([15,  6,  6]), 'skl_kernel': 'rbf', 'skl_model__alpha': 1.83e-06, 'skl_model__copy_X': True, 'skl_model__fit_intercept': True, 'skl_model__max_iter': None, 'skl_model__normalize': False, 'skl_model__random_state': None, 'skl_model__solver': 'auto', 'skl_model__tol': 0.001, 'skl_model': Ridge(alpha=1.83e-06)}
 
 
-```
+```python
 #fit the model
 skl_kt_model.fit(X_train,y_train)
 ```
@@ -117,7 +117,7 @@ skl_kt_model.fit(X_train,y_train)
 
 
 
-```
+```python
 #predict the model
 y_pred = skl_kt_model.predict(X_test)
 #error measurement
@@ -131,7 +131,7 @@ print('Average error for (x,y) location estimation is {:5.2g} meters'.format(mse
 #### GLMnet Regressor 
 The GLMnet regressor, `glmnet_kt_regressor`, is defined in such a way to follow the SKLearn API -- advantageous in leveraging large body of tools.  Below steps through setting up a model, fitting, and predicting.  Using same data and kernel settings as `skl_kt_regressor` example.
 
-```
+```python
 #use same training and testing set
 num_meas_array = np.array([15,6,6]) 
 kernel_s0, kernel_s1, kernel_s2 = np.array([1.13e-06, 2.07e-03, 10])
@@ -158,7 +158,7 @@ glm_kt_model.fit(X_train, y_train)
 
 
 
-```
+```python
 #predict the model
 y_pred = glm_kt_model.predict(X_test)
 #error measurement
@@ -176,7 +176,7 @@ Generally speaking, model and kernel parameters need to be tuned. Building on pr
 #### SKLearn Regressor
 Using SKLearn models.
 
-```
+```python
 from scipy.stats import loguniform, uniform
 from sklearn.model_selection import RandomizedSearchCV
 
@@ -210,7 +210,7 @@ print(search_results.best_params_)
 
 From search, set params for base model and validate against test data
 
-```
+```python
 #set params based on search
 skl_kt_model.set_params(**search_results.best_params_)
 
@@ -230,7 +230,7 @@ print('Average error for (x,y) location estimation is {:5.2g} meters'.format(mse
 #### GLMnet Regressor
 Using GLMnet model.
 
-```
+```python
 from scipy.stats import loguniform, uniform
 from sklearn.model_selection import RandomizedSearchCV
 
@@ -266,7 +266,7 @@ print(search_results.best_params_)
     {'kernel_s0': 0.0003017344124394731, 'kernel_s1': 0.0015381828738127007, 'kernel_s2': 0.13428923755571717, 'lambdau': 1.1024263412692438e-07, 'skl_kernel': 'rbf'}
 
 
-```
+```python
 #set params based on search
 glm_kt_model.set_params(**search_results.best_params_)
 

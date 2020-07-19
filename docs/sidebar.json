@@ -1,7 +1,7 @@
 {
   "rfml_localization": {
     "Overview": "/",
-    "RFML_localization": "/core",
+    "rfml_localization": "/core",
     "RFsimulation": "/RFsimulation"
   }
 }
