@@ -4,7 +4,7 @@ __all__ = ['HFF_k_matrix', 'sklearn_kt_regressor', 'glmnet_kt_regressor']
 
 # Cell
 import numpy as np
-from sklearn.base import BaseEstimator, RegressorMixin
+from sklearn.base import BaseEstimator
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 from sklearn.metrics import pairwise_kernels, mean_squared_error
 from sklearn.preprocessing import Normalizer
