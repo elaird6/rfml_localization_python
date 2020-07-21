@@ -5,8 +5,8 @@ title: rfml_localization
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "Focus on repository is the location of uncooperative wireless emitters in an indoor environment.  The challenge is that an indoor environment results in dynamic, random propagation of wireless signals.  An approach is to create a RF fingerprint or map of the environment using different RF measurements techniques. Relevant measurements techniques generate a range of data from IQ samples to correlation curves to time-delay estimates (TDE's) for  TDOA; multiple power readings for RSS; and multiple angle of arrival readings for AoA.  The theoretical performance bounds are generated, via CRLB, of empirically measured and derived channel limitations that exists in literature.  From same literature, a simulation model is created that generates the specified random RF channel environment. From these foundations, regression models, that learn from the data in predicting the location of detected emitters, can be tested and validated; some of which are presented here."
-description: "Focus on repository is the location of uncooperative wireless emitters in an indoor environment.  The challenge is that an indoor environment results in dynamic, random propagation of wireless signals.  An approach is to create a RF fingerprint or map of the environment using different RF measurements techniques. Relevant measurements techniques generate a range of data from IQ samples to correlation curves to time-delay estimates (TDE's) for  TDOA; multiple power readings for RSS; and multiple angle of arrival readings for AoA.  The theoretical performance bounds are generated, via CRLB, of empirically measured and derived channel limitations that exists in literature.  From same literature, a simulation model is created that generates the specified random RF channel environment. From these foundations, regression models, that learn from the data in predicting the location of detected emitters, can be tested and validated; some of which are presented here."
+summary: "Focus of repository is the location of uncooperative wireless emitters in an indoor environment.  The challenge is that an indoor environment results in dynamic, random propagation of wireless signals.  An approach is to create a RF fingerprint or map of the environment using different RF measurements techniques. Relevant measurements techniques generate a range of data from IQ samples to correlation curves to time-delay estimates (TDE's) for  TDOA; multiple power readings for RSS; and multiple angle of arrival readings for AoA.  The theoretical performance bounds are generated, via CRLB, of empirically measured and derived channel limitations that exists in literature.  From same literature, a simulation model is created that generates the specified random RF channel environment. From these foundations, regression models, that learn from the data in predicting the location of detected emitters, can be tested and validated; some of which are presented here."
+description: "Focus of repository is the location of uncooperative wireless emitters in an indoor environment.  The challenge is that an indoor environment results in dynamic, random propagation of wireless signals.  An approach is to create a RF fingerprint or map of the environment using different RF measurements techniques. Relevant measurements techniques generate a range of data from IQ samples to correlation curves to time-delay estimates (TDE's) for  TDOA; multiple power readings for RSS; and multiple angle of arrival readings for AoA.  The theoretical performance bounds are generated, via CRLB, of empirically measured and derived channel limitations that exists in literature.  From same literature, a simulation model is created that generates the specified random RF channel environment. From these foundations, regression models, that learn from the data in predicting the location of detected emitters, can be tested and validated; some of which are presented here."
 ---
 <!--
 
@@ -35,27 +35,34 @@ description: "Focus on repository is the location of uncooperative wireless emit
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Github (using notebooks)<ul>
-<li>git clone</li>
-<li>cd rfml_localization</li>
-<li>jupyter lab </li>
-</ul>
-</li>
-<li>Github (using pure python lib)<ul>
-<li>git clone</li>
-<li>cd rfml_localization/rfml_localization</li>
-<li>python<ul>
-<li>import rfml_localization</li>
+<p>rfml_localization requires</p>
+<ul>
+<li>numpy</li>
+<li>sklearn</li>
+<li>matplotlib</li>
+<li>glmnet_py<ul>
+<li>libgfortran3</li>
 </ul>
 </li>
 </ul>
-</li>
-<li>pip install<ul>
-<li><strong>not done yet</strong> <del><code>pip install rfml_localization</code></del></li>
-</ul>
-</li>
-</ol>
+<p>You can install using the following methods</p>
+<p>From source - github notebooks</p>
+
+<pre><code>git clone
+cd rfml_localization
+jupyter lab 
+</code></pre>
+<p>From source - github python lib</p>
+
+<pre><code>git clone
+cd rfml_localization/rfml_localization
+python
+import rfml_localization.core as rfcore
+import rfml_localization.RFsimulation as rfsim
+</code></pre>
+<p>Eventually, pip</p>
+
+<pre><code>~~pip install rfml_localization~~</code></pre>
 
 </div>
 </div>
@@ -68,14 +75,20 @@ description: "Focus on repository is the location of uncooperative wireless emit
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The primary purpose of package is to use available optimization techniques with RF fingerprinting for indoor localization.  The package is written to enable the leveraging of <a href="https://scikit-learn.org/">Sci-Kit Learn</a>.  In addition, it enables the use of GLMnet - (see <a href="https://glmnet-python.readthedocs.io/en/latest/glmnet_vignette.html">Glmnet Vignette</a>). This package includes a simulation mode, <code>RFsimulation</code>, to generate a set of locations and associated synthetic measurements.  For optimization, the focus is on kernilzing data, see <a href="/rfml_localization/core#HFF_k_matrix"><code>HFF_k_matrix</code></a>, and then pairing with regression models (<a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html">Ridge</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html">Lasso</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPRegressor.html">MLPregressor</a>, etc) within SKLearn or the Glmnet model.  The kernelized measurement parameters are tuned along with chosen model.</p>
+<p>The primary purpose of package is to use available optimization techniques with RF fingerprinting for indoor localization. The package is written to enable the leveraging of <a href="https://scikit-learn.org/">Sci-Kit Learn</a>, so assumes some familiarity with said package.  In addition, it enables the use of GLMnet - (see <a href="https://glmnet-python.readthedocs.io/en/latest/glmnet_vignette.html">Glmnet Vignette</a>). This package includes a simulation mode, <a href="/rfml_localization/RFsimulation"><code>RFsimulation</code></a>, to generate a set of locations and associated synthetic measurements.  For optimization, the focus is on kernilzing data, see <a href="/rfml_localization/core#HFF_k_matrix"><code>HFF_k_matrix</code></a>, and then pairing with regression models (<a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html">Ridge</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html">Lasso</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPRegressor.html">MLPregressor</a>, etc) within SKLearn or the Glmnet model.  The kernelized measurement parameters are tuned along with chosen model.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Manual-Optimization">Manual Optimization<a class="anchor-link" href="#Manual-Optimization"> </a></h3><p>To use, first step is create an `RFchannel instance.</p>
+<h3 id="Manual-Optimization">Manual Optimization<a class="anchor-link" href="#Manual-Optimization"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Create-Channel">Create Channel<a class="anchor-link" href="#Create-Channel"> </a></h4><p>To showcase use, first step is create an <a href="/rfml_localization/RFsimulation#RFchannel"><code>RFchannel</code></a> instance from the <a href="/rfml_localization/RFsimulation"><code>RFsimulation</code></a> which provides methods to generate synthetic data for testing. For background on parameters, see Saleh [^1], Rappaport [^2], and Spencer [^3].</p>
 
 </div>
 </div>
@@ -87,37 +100,13 @@ description: "Focus on repository is the location of uncooperative wireless emit
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">rfml_localization.RFsimulation</span> <span class="k">as</span> <span class="nn">RFsim</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">rfml_localization.RFsimulation</span> <span class="k">as</span> <span class="nn">rfsim</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 
-<span class="c1">#generate channel scenario using default channel parameters</span>
-<span class="n">RFchannel_scenario1</span> <span class="o">=</span> <span class="n">RFsim</span><span class="o">.</span><span class="n">RFchannel</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The object's channel parameters are:</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#print out object variables</span>
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">RFchannel_scenario1</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;, &#39;</span><span class="p">)</span>
+<span class="c1">#generate channel using default channel parameters</span>
+<span class="n">RFchannel_scenario1</span> <span class="o">=</span> <span class="n">rfsim</span><span class="o">.</span><span class="n">RFchannel</span><span class="p">()</span>
+<span class="c1">#print out parameters</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Channel parameters of created object:&quot;</span><span class="p">,</span><span class="nb">vars</span><span class="p">(</span><span class="n">RFchannel_scenario1</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -130,7 +119,8 @@ description: "Focus on repository is the location of uncooperative wireless emit
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>maxSpreadT, PoissonInvLambda, Poissoninvlambda, PoissonGamma, Poissongamma, PathLossN, Xsigma, Wavelength, AoAsigma, </pre>
+<pre>Channel parameters of created object: {&#39;maxSpreadT&#39;: 100, &#39;PoissonInvLambda&#39;: 50, &#39;Poissoninvlambda&#39;: 10, &#39;PoissonGamma&#39;: 50, &#39;Poissongamma&#39;: 29, &#39;PathLossN&#39;: 3.0, &#39;Xsigma&#39;: 7, &#39;Wavelength&#39;: 1.4615111050485465, &#39;AoAsigma&#39;: 0.4537856055185257}
+</pre>
 </div>
 </div>
 
@@ -142,7 +132,8 @@ description: "Focus on repository is the location of uncooperative wireless emit
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>After setting up the environment, create a sensor setup (Tx and Rx locations) and make 1000 observations of a Tx at random locations.  As methods are run on the object, additional variable are added.  This allows inspection of user-specified parameters and even methods run on object.  They are listed below.  Compare to previous cell.</p>
+<h4 id="Create-Sensor-Setup/Generate-Synthetic-Data">Create Sensor Setup/Generate Synthetic Data<a class="anchor-link" href="#Create-Sensor-Setup/Generate-Synthetic-Data"> </a></h4><p>After setting up the environment, create a sensor setup (here, fixed Rx locations) and Txmtr randomly placed at 1000 locations.  For each Txmtr location, an observation is created that contains TDoA, RSS, and AoA measurements -- see <code>RFsimulation.generate_Xmodel</code>. As methods are run on the object, additional variable are added.  This allows inspection of user-specified parameters and even methods run on the object.</p>
+<p>The generated measurements and associated locations are pulled out and then split into test, training sets.</p>
 
 </div>
 </div>
@@ -155,73 +146,19 @@ description: "Focus on repository is the location of uncooperative wireless emit
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#from channel scenario, generate locations for Tx and Rx and set of measurements</span>
-<span class="n">RFchannel_scenario1</span><span class="o">.</span><span class="n">generate_RxTxlocations</span><span class="p">(</span><span class="n">n_rx</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">n_runs</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">rxtx_flag</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">RFchannel_scenario1</span><span class="o">.</span><span class="n">generate_RxTxlocations</span><span class="p">(</span><span class="n">n_rx</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">n_runs</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">rxtx_flag</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="c1">#generate set of measurements</span>
 <span class="n">RFchannel_scenario1</span><span class="o">.</span><span class="n">generate_Xmodel</span><span class="p">()</span>
-<span class="c1">#print out object variables</span>
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">RFchannel_scenario1</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;, &#39;</span><span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>maxSpreadT, PoissonInvLambda, Poissoninvlambda, PoissonGamma, Poissongamma, PathLossN, Xsigma, Wavelength, AoAsigma, n_runs, n_rx, areaWL, sensor_locs, rxtx_flag, grid_flag, seed_loc, rxtx_locs, ch_delay_flag, tdoa_flag, seed_tdoa, rxx_delay, ch_gain_flag, drss_flag, seed_rss, rxx_rssi, ch_angle_flag, daoa_flag, seed_aoa, rxx_aoa, seed_Xmodel, X_model, </pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now that a set of measurements are created, split for training and testing.</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#take object&#39;s set of measurements and assign to X,y</span>
+<span class="c1">#take object&#39;s set of measurements, locations and assign to X,y</span>
 <span class="n">X</span><span class="o">=</span><span class="n">RFchannel_scenario1</span><span class="o">.</span><span class="n">X_model</span>  <span class="c1">#measurements/observations</span>
 <span class="n">y</span><span class="o">=</span><span class="n">RFchannel_scenario1</span><span class="o">.</span><span class="n">rxtx_locs</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,:]</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>  <span class="c1">#location of  Tx</span>
 
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Shapes of training data:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1">#split for training, test</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre> Shapes of training data:
- (6700, 27) (6700, 2)
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -230,7 +167,13 @@ description: "Focus on repository is the location of uncooperative wireless emit
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="SKLearn-Regressor">SKLearn Regressor<a class="anchor-link" href="#SKLearn-Regressor"> </a></h4><p>After generating locations, import SKLearn models for regression.  Use the SKLearn-based kernel trick function, <a href="/rfml_localization/core#sklearn_kt_regressor"><code>sklearn_kt_regressor</code></a>, which wraps a specified SKLearn model and kernelized matrix into a single interface to enable use of SKLearn hyper-tuning tools.  The <a href="/rfml_localization/core#sklearn_kt_regressor"><code>sklearn_kt_regressor</code></a> inherits all the basic functionality of standard SKLearn model API.  The following sets up model, sets parameters, fits the model, and then predicts.</p>
+<h4 id="Test-Models">Test Models<a class="anchor-link" href="#Test-Models"> </a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Using-sklearn_kt_regressor">Using sklearn_kt_regressor<a class="anchor-link" href="#Using-sklearn_kt_regressor"> </a></h5><p>After generating locations, import SKLearn models for regression.  Ridge and LASSO models were imported but any Sci-Kit Learn model should work. These models along with kernel parameters are passed to the Sci-Kit Learn-based kernel trick object, <a href="/rfml_localization/core#sklearn_kt_regressor"><code>sklearn_kt_regressor</code></a>.  <a href="/rfml_localization/core#sklearn_kt_regressor"><code>sklearn_kt_regressor</code></a> wraps the specified model and kernelized matrix into a single interface to enable use of SKLearn hyper-tuning tools.  It inherits all the basic functionality of standard Sci-Kit Learn API.  The following sets up model, sets parameters, fits the model, and then predicts.  Note that no tuning of the model's parameters has been conducted so final results are not optimized.</p>
 
 </div>
 </div>
@@ -242,98 +185,37 @@ description: "Focus on repository is the location of uncooperative wireless emit
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span><span class="p">,</span> <span class="n">Lasso</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span><span class="p">,</span> <span class="n">Lasso</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
-
 
 <span class="c1">#based on knowledge of measurement, can derive from class instance rather than manually entering</span>
 <span class="c1">#variables (shape[1] of rxx_delay, rxx_rss, rxx_aoa, i.e., RFchannel_scenario1.rxx_delay.shape[1])</span>
 <span class="n">num_meas_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span> 
-<span class="c1">#tuning parameter for each kernel</span>
+
+<span class="c1">#tuning parameter for each measurement kernel (TDoA, RSS, AoA)</span>
 <span class="n">kernel_s0</span><span class="p">,</span> <span class="n">kernel_s1</span><span class="p">,</span> <span class="n">kernel_s2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.13e-06</span><span class="p">,</span> <span class="mf">2.07e-03</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
 
 <span class="c1">#set up the model</span>
-<span class="n">skl_kt_model</span> <span class="o">=</span> <span class="n">sklearn_kt_regressor</span><span class="p">(</span><span class="n">skl_model</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=.</span><span class="mi">01</span><span class="p">),</span> <span class="n">skl_kernel</span> <span class="o">=</span> <span class="s1">&#39;rbf&#39;</span><span class="p">,</span> 
+<span class="n">skl_kt_model</span> <span class="o">=</span> <span class="n">sklearn_kt_regressor</span><span class="p">(</span><span class="n">skl_model</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(),</span> <span class="n">skl_kernel</span> <span class="o">=</span> <span class="s1">&#39;rbf&#39;</span><span class="p">,</span> 
                                     <span class="n">n_kernels</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">kernel_s0</span> <span class="o">=</span> <span class="n">kernel_s0</span><span class="p">,</span> <span class="n">kernel_s1</span> <span class="o">=</span> <span class="n">kernel_s1</span><span class="p">,</span> 
                                     <span class="n">kernel_s2</span> <span class="o">=</span> <span class="n">kernel_s2</span><span class="p">,</span> <span class="n">n_meas_array</span><span class="o">=</span><span class="n">num_meas_array</span><span class="p">)</span>
 
-<span class="c1">#set/get model parameters - showing methods inherited from SKLearn</span>
-<span class="c1">#assign a model parameter</span>
+<span class="c1">#set model parameters - showing methods inherited from SKLearn</span>
 <span class="n">skl_kt_model</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">skl_model__alpha</span> <span class="o">=</span> <span class="mf">1.83e-06</span><span class="p">)</span>
-<span class="c1">#display model params</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">skl_kt_model</span><span class="o">.</span><span class="n">get_params</span><span class="p">())</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;kernel_s0&#39;: 1.13e-06, &#39;kernel_s1&#39;: 0.00207, &#39;kernel_s2&#39;: 10.0, &#39;n_kernels&#39;: 3, &#39;n_meas_array&#39;: array([15,  6,  6]), &#39;skl_kernel&#39;: &#39;rbf&#39;, &#39;skl_model__alpha&#39;: 1.83e-06, &#39;skl_model__copy_X&#39;: True, &#39;skl_model__fit_intercept&#39;: True, &#39;skl_model__max_iter&#39;: None, &#39;skl_model__normalize&#39;: False, &#39;skl_model__random_state&#39;: None, &#39;skl_model__solver&#39;: &#39;auto&#39;, &#39;skl_model__tol&#39;: 0.001, &#39;skl_model&#39;: Ridge(alpha=1.83e-06)}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#fit the model</span>
+<span class="c1">#fit the model</span>
 <span class="n">skl_kt_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>sklearn_kt_regressor(kernel_s0=1.13e-06, kernel_s1=0.00207, kernel_s2=10.0,
-                     n_kernels=3, n_meas_array=array([15,  6,  6]),
-                     skl_kernel=&#39;rbf&#39;, skl_model=Ridge(alpha=1.83e-06))</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#predict the model</span>
+<span class="c1">#predict the model</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">skl_kt_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="c1">#error measurement</span>
+
+<span class="c1">#error measurements</span>
 <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average error for (x,y) location estimation is </span><span class="si">{:5.2g}</span><span class="s1"> meters&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mse</span><span class="p">))</span>
+<span class="n">msec</span> <span class="o">=</span> <span class="n">mse_EucDistance</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------------------------------------&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean summed/mean physical distance error for (x,y) location estimation: </span><span class="si">{:3.1f}</span><span class="s1"> / </span><span class="si">{:3.1f}</span><span class="s1">: meters&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mse</span><span class="p">,</span><span class="n">msec</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------------------------------------&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -346,7 +228,9 @@ description: "Focus on repository is the location of uncooperative wireless emit
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Average error for (x,y) location estimation is   9.9 meters
+<pre>-----------------------------------------------------------------------------------------------
+Mean summed/mean physical distance error for (x,y) location estimation: 10.9 / 4.0: meters
+-----------------------------------------------------------------------------------------------
 </pre>
 </div>
 </div>
@@ -359,7 +243,7 @@ description: "Focus on repository is the location of uncooperative wireless emit
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="GLMnet-Regressor">GLMnet Regressor<a class="anchor-link" href="#GLMnet-Regressor"> </a></h4><p>The GLMnet regressor, <a href="/rfml_localization/core#glmnet_kt_regressor"><code>glmnet_kt_regressor</code></a>, is defined in such a way to follow the SKLearn API -- advantageous in leveraging large body of tools.  Below steps through setting up a model, fitting, and predicting.  Using same data and kernel settings as <code>skl_kt_regressor</code> example.</p>
+<h5 id="Using-glmnet_kt_regressor">Using glmnet_kt_regressor<a class="anchor-link" href="#Using-glmnet_kt_regressor"> </a></h5><p>Similarly, the GLMnet regressor, <a href="/rfml_localization/core#glmnet_kt_regressor"><code>glmnet_kt_regressor</code></a>, is defined in such a way to follow the Sci-Kit Learn API -- advantageous in leveraging large body of tools.  Below steps through setting up a model, fitting, and predicting.  Using same data and kernel settings as <code>skl_kt_regressor</code> example.</p>
 
 </div>
 </div>
@@ -374,57 +258,26 @@ description: "Focus on repository is the location of uncooperative wireless emit
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#use same training and testing set</span>
 <span class="n">num_meas_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span> 
 <span class="n">kernel_s0</span><span class="p">,</span> <span class="n">kernel_s1</span><span class="p">,</span> <span class="n">kernel_s2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.13e-06</span><span class="p">,</span> <span class="mf">2.07e-03</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
-<span class="c1">#glmnet_args={&#39;family&#39;: &#39;mgaussian&#39;, &#39;standardize&#39;: False}</span>
+
+<span class="c1">#set up the model, passing glmnet specific parameters via dictionary</span>
 <span class="n">glmnet_args</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">family</span><span class="o">=</span> <span class="s1">&#39;mgaussian&#39;</span><span class="p">,</span> <span class="n">standardize</span><span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 
-<span class="c1">#set up the model</span>
 <span class="n">glm_kt_model</span> <span class="o">=</span> <span class="n">glmnet_kt_regressor</span><span class="p">(</span><span class="n">glm_alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lambdau</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">skl_kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">n_kernels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                  <span class="n">kernel_s0</span> <span class="o">=</span> <span class="n">kernel_s0</span><span class="p">,</span> <span class="n">kernel_s1</span> <span class="o">=</span> <span class="n">kernel_s1</span><span class="p">,</span> <span class="n">kernel_s2</span> <span class="o">=</span> <span class="n">kernel_s2</span><span class="p">,</span>
                  <span class="n">n_meas_array</span><span class="o">=</span><span class="n">num_meas_array</span><span class="p">,</span> <span class="n">glmnet_args</span><span class="o">=</span><span class="n">glmnet_args</span><span class="p">)</span>
 
 <span class="c1">#fit the model</span>
 <span class="n">glm_kt_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>glmnet_kt_regressor(glm_alpha=0,
-                    glmnet_args={&#39;family&#39;: &#39;mgaussian&#39;, &#39;standardize&#39;: False},
-                    kernel_s0=1.13e-06, kernel_s1=0.00207, kernel_s2=10.0,
-                    lambdau=array([0.001]), n_kernels=3,
-                    n_meas_array=array([15,  6,  6]), skl_kernel=&#39;rbf&#39;)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#predict the model</span>
+<span class="c1">#predict the model</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">glm_kt_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="c1">#error measurement</span>
+
+<span class="c1">#error measurements</span>
 <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average error for (x,y) location estimation is </span><span class="si">{:5.2g}</span><span class="s1"> meters&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mse</span><span class="p">))</span>
+<span class="n">msec</span> <span class="o">=</span> <span class="n">mse_EucDistance</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------------------------------------&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean summed/mean physical distance error for (x,y) location estimation: </span><span class="si">{:3.1f}</span><span class="s1"> / </span><span class="si">{:3.1f}</span><span class="s1">: meters&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mse</span><span class="p">,</span><span class="n">msec</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------------------------------------&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -437,7 +290,9 @@ description: "Focus on repository is the location of uncooperative wireless emit
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Average error for (x,y) location estimation is    23 meters
+<pre>-----------------------------------------------------------------------------------------------
+Mean summed/mean physical distance error for (x,y) location estimation: 23.9 / 5.9: meters
+-----------------------------------------------------------------------------------------------
 </pre>
 </div>
 </div>
@@ -457,7 +312,7 @@ description: "Focus on repository is the location of uncooperative wireless emit
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="SKLearn-Regressor">SKLearn Regressor<a class="anchor-link" href="#SKLearn-Regressor"> </a></h4><p>Using SKLearn models.</p>
+<h4 id="Using-sklear_kt_regressor">Using sklear_kt_regressor<a class="anchor-link" href="#Using-sklear_kt_regressor"> </a></h4><p>Using sklearn models.  For this example, for processing speed, n_iter is kept low.  For better performance, increase to 5k.  Note the improved performance.  Here, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html">RandomizedSearchCV</a> is used for hyperparameter though any sklearn technique is viable.</p>
 
 </div>
 </div>
@@ -469,8 +324,11 @@ description: "Focus on repository is the location of uncooperative wireless emit
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">loguniform</span><span class="p">,</span> <span class="n">uniform</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">loguniform</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">RandomizedSearchCV</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">float_format</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.2e}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">120</span>
 
 <span class="c1">#use loguniform to search uniformaly across orders of magnitude</span>
 <span class="n">distributions</span> <span class="o">=</span> <span class="p">{</span>
@@ -483,11 +341,26 @@ description: "Focus on repository is the location of uncooperative wireless emit
 <span class="c1">#create search model from base model</span>
 <span class="n">skl_kt_model_search</span> <span class="o">=</span> <span class="n">RandomizedSearchCV</span><span class="p">(</span><span class="n">skl_kt_model</span><span class="p">,</span> <span class="n">distributions</span><span class="p">,</span>
                                      <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;neg_mean_squared_error&#39;</span><span class="p">,</span> 
-                                     <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_iter</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                                     <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_iter</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1">#fit search model</span>
-<span class="n">search_results</span> <span class="o">=</span> <span class="n">skl_kt_model_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">skl_search_results</span> <span class="o">=</span> <span class="n">skl_kt_model_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">search_results</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="c1">#set params based on search</span>
+<span class="n">skl_kt_model</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">skl_search_results</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+
+<span class="c1">#fit model using best params ()</span>
+<span class="n">skl_kt_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1">#predict and show error</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">skl_kt_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">msec</span> <span class="o">=</span> <span class="n">mse_EucDistance</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="n">skl_search_results_pd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">skl_search_results</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------------------------------------&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean summed/mean physical distance error for (x,y) location estimation: </span><span class="si">{:3.1f}</span><span class="s1"> / </span><span class="si">{:3.1f}</span><span class="s1">: meters&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mse</span><span class="p">,</span><span class="n">msec</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Optimized parameters in rank order (based on tested values):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">skl_search_results_pd</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;rank_test_score&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;param_kernel_s0&#39;</span><span class="p">,</span> <span class="s1">&#39;param_kernel_s1&#39;</span><span class="p">,</span><span class="s1">&#39;param_kernel_s2&#39;</span><span class="p">,</span><span class="s1">&#39;param_lambdau&#39;</span><span class="p">,</span><span class="s1">&#39;param_skl_kernel&#39;</span><span class="p">,</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------------------------------------&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -500,7 +373,7 @@ description: "Focus on repository is the location of uncooperative wireless emit
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Fitting 5 folds for each of 100 candidates, totalling 500 fits
+<pre>Fitting 5 folds for each of 10 candidates, totalling 50 fits
 </pre>
 </div>
 </div>
@@ -509,7 +382,7 @@ description: "Focus on repository is the location of uncooperative wireless emit
 
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>[Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
-[Parallel(n_jobs=1)]: Done 500 out of 500 | elapsed: 58.1min finished
+[Parallel(n_jobs=1)]: Done  50 out of  50 | elapsed:    6.1s finished
 </pre>
 </div>
 </div>
@@ -517,7 +390,17 @@ description: "Focus on repository is the location of uncooperative wireless emit
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;kernel_s0&#39;: 0.0007094452596116463, &#39;kernel_s1&#39;: 0.032187896160191284, &#39;kernel_s2&#39;: 0.2663595286341815, &#39;skl_kernel&#39;: &#39;laplacian&#39;, &#39;skl_model__alpha&#39;: 0.0006763336535533695}
+<pre>-----------------------------------------------------------------------------------------------
+Mean summed/mean physical distance error for (x,y) location estimation: 23.9 / 3.5: meters
+Optimized parameters in rank order (based on tested values):
+
+  param_kernel_s0 param_kernel_s1 param_kernel_s2 param_skl_kernel  mean_test_score
+7        3.39e-06        2.71e-05        1.18e-01              rbf        -8.11e+00
+9        4.31e-06        7.34e-01        5.23e-03              rbf        -1.14e+01
+1        4.06e-07        1.71e-03        2.10e-03        laplacian        -1.91e+01
+3        1.67e+00        5.37e-03        7.96e-01              rbf        -1.94e+01
+2        1.39e-03        9.21e-04        3.03e-01              rbf        -2.11e+01
+-----------------------------------------------------------------------------------------------
 </pre>
 </div>
 </div>
@@ -530,7 +413,7 @@ description: "Focus on repository is the location of uncooperative wireless emit
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>From search, set params for base model and validate against test data</p>
+<h4 id="Using-glmnet_kt_regressor">Using glmnet_kt_regressor<a class="anchor-link" href="#Using-glmnet_kt_regressor"> </a></h4><p>Using GLMnet model. For this example, for processing speed, n_iter is kept low.  For better performance, increase to 5k.</p>
 
 </div>
 </div>
@@ -542,57 +425,7 @@ description: "Focus on repository is the location of uncooperative wireless emit
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#set params based on search</span>
-<span class="n">skl_kt_model</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">search_results</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
-
-<span class="c1">#fit model using best params ()</span>
-<span class="n">skl_kt_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-
-<span class="c1">#predict and show error</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">skl_kt_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">mse</span><span class="o">=</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average error for (x,y) location estimation is </span><span class="si">{:5.2g}</span><span class="s1"> meters&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mse</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Average error for (x,y) location estimation is   5.1 meters
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="GLMnet-Regressor">GLMnet Regressor<a class="anchor-link" href="#GLMnet-Regressor"> </a></h4><p>Using GLMnet model.</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">loguniform</span><span class="p">,</span> <span class="n">uniform</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">RandomizedSearchCV</span>
-
-<span class="c1">#use loguniform to search uniformally across orders of magnitude</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#use loguniform to search uniformally across orders of magnitude</span>
 <span class="n">distributions</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;lambdau&#39;</span><span class="p">:</span> <span class="n">loguniform</span><span class="p">(</span><span class="mf">1e-7</span><span class="p">,</span> <span class="mf">1.0e+0</span><span class="p">),</span>
         <span class="s1">&#39;kernel_s0&#39;</span><span class="p">:</span> <span class="n">loguniform</span><span class="p">(</span><span class="mf">1e-7</span><span class="p">,</span> <span class="mf">1.0e+1</span><span class="p">),</span>
@@ -600,15 +433,31 @@ description: "Focus on repository is the location of uncooperative wireless emit
         <span class="s1">&#39;kernel_s2&#39;</span><span class="p">:</span> <span class="n">loguniform</span><span class="p">(</span><span class="mf">1e-4</span><span class="p">,</span> <span class="mf">1.0e+2</span><span class="p">),</span>
         <span class="s1">&#39;skl_kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;laplacian&#39;</span><span class="p">,</span> <span class="s1">&#39;rbf&#39;</span><span class="p">],</span>  <span class="c1"># categorical parameter</span>
     <span class="p">}</span>
+
 <span class="c1">#create search model from base model</span>
 <span class="c1">#glmnet_model uses single cpu, so increase number of jobs </span>
 <span class="n">glm_kt_model_search</span> <span class="o">=</span> <span class="n">RandomizedSearchCV</span><span class="p">(</span><span class="n">glm_kt_model</span><span class="p">,</span> <span class="n">distributions</span><span class="p">,</span>
                                      <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;neg_mean_squared_error&#39;</span><span class="p">,</span> 
-                                     <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="n">n_iter</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                                     <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="n">n_iter</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1">#fit search model</span>
-<span class="n">search_results</span> <span class="o">=</span> <span class="n">glm_kt_model_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">glm_search_results</span> <span class="o">=</span> <span class="n">glm_kt_model_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">search_results</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="c1">#set params based on search</span>
+<span class="n">glm_kt_model</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">glm_search_results</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+
+<span class="c1">#fit model using best params ()</span>
+<span class="n">glm_kt_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1">#predict and show error</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">glm_kt_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">msec</span> <span class="o">=</span> <span class="n">mse_EucDistance</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="n">glm_search_results_pd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">glm_search_results</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------------------------------------&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean summed/mean physical distance error for (x,y) location estimation: </span><span class="si">{:3.1f}</span><span class="s1"> / </span><span class="si">{:3.1f}</span><span class="s1">: meters&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mse</span><span class="p">,</span><span class="n">msec</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Optimized parameters in rank order (based on tested values):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">glm_search_results_pd</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;rank_test_score&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;param_kernel_s0&#39;</span><span class="p">,</span> <span class="s1">&#39;param_kernel_s1&#39;</span><span class="p">,</span><span class="s1">&#39;param_kernel_s2&#39;</span><span class="p">,</span><span class="s1">&#39;param_lambdau&#39;</span><span class="p">,</span><span class="s1">&#39;param_skl_kernel&#39;</span><span class="p">,</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----------------------------------------------------------------------------------------------&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -621,7 +470,7 @@ description: "Focus on repository is the location of uncooperative wireless emit
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Fitting 5 folds for each of 100 candidates, totalling 500 fits
+<pre>Fitting 5 folds for each of 10 candidates, totalling 50 fits
 </pre>
 </div>
 </div>
@@ -630,10 +479,8 @@ description: "Focus on repository is the location of uncooperative wireless emit
 
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>[Parallel(n_jobs=6)]: Using backend LokyBackend with 6 concurrent workers.
-[Parallel(n_jobs=6)]: Done  38 tasks      | elapsed:  7.8min
-[Parallel(n_jobs=6)]: Done 188 tasks      | elapsed: 39.3min
-[Parallel(n_jobs=6)]: Done 438 tasks      | elapsed: 102.3min
-[Parallel(n_jobs=6)]: Done 500 out of 500 | elapsed: 115.8min finished
+[Parallel(n_jobs=6)]: Done  38 tasks      | elapsed:    5.3s
+[Parallel(n_jobs=6)]: Done  50 out of  50 | elapsed:    9.5s finished
 </pre>
 </div>
 </div>
@@ -641,7 +488,16 @@ description: "Focus on repository is the location of uncooperative wireless emit
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;kernel_s0&#39;: 0.0003017344124394731, &#39;kernel_s1&#39;: 0.0015381828738127007, &#39;kernel_s2&#39;: 0.13428923755571717, &#39;lambdau&#39;: 1.1024263412692438e-07, &#39;skl_kernel&#39;: &#39;rbf&#39;}
+<pre>-----------------------------------------------------------------------------------------------
+Mean summed/mean physical distance error for (x,y) location estimation: 23.9 / 3.2: meters
+Optimized parameters in rank order (based on tested values):
+  param_kernel_s0 param_kernel_s1 param_kernel_s2 param_lambdau param_skl_kernel  mean_test_score
+7        2.56e-03        1.24e-02        2.73e-02      3.26e-07        laplacian        -6.95e+00
+0        4.83e-04        2.50e-06        1.13e-02      5.07e-04              rbf        -1.92e+01
+1        4.94e-06        7.78e-05        2.06e+00      1.11e-03              rbf        -2.44e+01
+9        2.64e-05        3.72e-01        1.32e-03      2.87e-03              rbf        -2.46e+01
+2        1.13e-07        1.84e-02        8.37e-03      1.73e-04        laplacian        -2.78e+01
+-----------------------------------------------------------------------------------------------
 </pre>
 </div>
 </div>
@@ -652,46 +508,16 @@ description: "Focus on repository is the location of uncooperative wireless emit
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#set params based on search</span>
-<span class="n">glm_kt_model</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">search_results</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
-
-<span class="c1">#fit model using best params ()</span>
-<span class="n">glm_kt_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-
-<span class="c1">#predict and show error</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">glm_kt_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">mse</span><span class="o">=</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average error for (x,y) location estimation is </span><span class="si">{:5.2g}</span><span class="s1"> meters&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mse</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Average error for (x,y) location estimation is   5.7 meters
-</pre>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="References">References<a class="anchor-link" href="#References"> </a></h2><div class="footnotes">
+<hr>
+<ol></ol>
 </div>
 
 </div>
 </div>
-
 </div>
-    {% endraw %}
-
 </div>
  
 

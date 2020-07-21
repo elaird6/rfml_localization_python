@@ -3,6 +3,7 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"HFF_k_matrix": "00_core.ipynb",
+         "mse_EucDistance": "00_core.ipynb",
          "sklearn_kt_regressor": "00_core.ipynb",
          "glmnet_kt_regressor": "00_core.ipynb",
          "RFchannel": "01_RFsimulation.ipynb"}
